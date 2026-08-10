@@ -54,6 +54,57 @@ Installing a leaf pulls its own dependencies (`jax`, `numpy`, `scipy`,
 `matplotlib` for the puncture models) plus the core and umbrella it declares.
 Install only the members you need — they are independent distributions.
 
+`editable_mode=compat` is not optional. setuptools' modern editable mode
+installs each distribution behind a meta-path finder, and `PathFinder` runs
+*before* those, so the leaves' bare `lemaitre/initial_data/` directories win as
+PEP 420 namespace portions and the umbrella's real `__init__.py` is never
+loaded. Direct imports still work; `lm.initial_data.<model>` does not. Normal
+(non-editable) installs are unaffected.
+
+## Working across the submodules
+
+The family is one superproject and one submodule per domain, nested two deep
+(`Lemaitre` → `LM-initial-data` → `LMID-*`). The ordering rule is **asymmetric**,
+and it is the whole discipline.
+
+**Committing and pushing: innermost → outermost.** Push a leaf *before*
+committing the pointer that names it — a superproject commit recording a SHA
+nobody can fetch breaks the clone for everyone but its author.
+
+```bash
+git -C LM-initial-data/LMID-curved-puncture commit -m "..."      # 1. the leaf
+git -C LM-initial-data/LMID-curved-puncture push origin main
+git -C LM-initial-data add LMID-curved-puncture                  # 2. the umbrella
+git -C LM-initial-data commit -m "Advance the curved-puncture submodule to ..."
+git -C LM-initial-data push origin main
+git add LM-initial-data                                          # 3. the superproject
+git commit -m "Advance the initial-data umbrella to ..." && git push origin main
+```
+
+**Pulling: outermost → innermost.** The superproject tells the submodules where
+to go, never the reverse: `git pull && git submodule update --init --recursive`.
+
+**A submodule commit is not a change until its parent records it.** The pointer
+must be staged in every parent up the chain, or the work is invisible to a fresh
+clone. `git submodule status --recursive` from the root flags a stale pointer
+with a leading `+`.
+
+Set this up once, and git enforces the first rule for you instead of leaving it
+to discipline:
+
+```bash
+git config push.recurseSubmodules on-demand   # or 'check' to refuse rather than auto-push
+git config submodule.recurse true             # pull/checkout/switch recurse
+git config status.submoduleSummary true       # `git status` says which submodule moved
+git config diff.submodule log                 # pointer diffs render as commit subjects
+```
+
+Pointer-bump commit messages should say what moved and why (`old → new` plus a
+line of content): that message is the only thing a reader of the superproject
+history sees. A leaf's `main` can also advance without any parent noticing —
+`git submodule foreach --recursive 'git fetch -q && git status -sb | head -1'`
+spots leaves that have drifted ahead of the recorded pointer.
+
 ## License
 
 GPL-3.0 (see `LICENSE`).
