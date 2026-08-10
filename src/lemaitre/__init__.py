@@ -9,24 +9,22 @@ can depend on it without inheriting a solver stack.
 The family is **two levels deep**, and each level is owned by exactly one
 distribution:
 
-===============================================  ==============================
-namespace                                        distribution / repository
-===============================================  ==============================
-``lemaitre``                                     ``lemaitre`` (this file)
-                                                 — *Lemaitre*
-``lemaitre.initial_data``                        ``lemaitre-initial-data``
-                                                 — *LM-initial-data*, the
-                                                 umbrella
-``lemaitre.initial_data.conformally_flat``       ``lemaitre-initial-data-``
-                                                 ``conformally-flat``
-                                                 — *LMID-conformally-flat-*
-                                                 *puncture*, the paper package
-``lemaitre.initial_data.curved``                 ``lemaitre-initial-data-``
-                                                 ``curved``
-                                                 — *LMID-curved-puncture*
-``lemaitre.inspiral``                            ``lemaitre-inspiral``
-                                                 — *LM-inspiral*
-===============================================  ==============================
+===================================================  ==================================
+namespace                                            distribution / repository
+===================================================  ==================================
+``lemaitre``                                         ``lemaitre`` (this file)
+                                                     — *Lemaitre*
+``lemaitre.initial_data``                            ``lemaitre-initial-data``
+                                                     — *LM-initial-data*, the umbrella
+``lemaitre.initial_data.conformally_flat_puncture``  ``LMID-conformally-flat-puncture``
+                                                     — the paper package
+``lemaitre.initial_data.curved_puncture``            ``LMID-curved-puncture``
+                                                     — its successor
+``lemaitre.inspiral``                                ``lemaitre-inspiral``
+                                                     — *LM-inspiral*
+===================================================  ==================================
+
+Each leaf's repository carries the same name as its distribution.
 
 ``lemaitre.initial_data`` is itself a namespace level: the umbrella owns its
 ``__init__.py`` and the two puncture leaves add only their own leaf package, so
@@ -38,7 +36,7 @@ independently while importing as siblings.
 ``__getattr__`` lazily imports subpackages on attribute access, so::
 
     import lemaitre as lm
-    lm.initial_data.conformally_flat.solver.solver_3d   # resolves on first access
+    lm.initial_data.conformally_flat_puncture.solver.solver_3d   # resolves on first access
 
 works without importing each subpackage explicitly.
 

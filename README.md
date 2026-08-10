@@ -7,9 +7,9 @@ all installing under the shared `lemaitre` namespace.
 ```python
 import lemaitre as lm
 
-lm.initial_data.conformally_flat.solver.solver_3d   # the CF production 3-D xCFC solver
-lm.initial_data.conformally_flat.parametric         # the certified/differentiable ROM
-lm.initial_data.curved                              # the curved-puncture successor
+lm.initial_data.conformally_flat_puncture.solver.solver_3d   # the CF production 3-D xCFC solver
+lm.initial_data.conformally_flat_puncture.parametric         # the certified/differentiable ROM
+lm.initial_data.curved_puncture                              # the curved-puncture successor
 ```
 
 This repository is the **core**: it owns the `lemaitre` namespace root and ships
@@ -24,8 +24,8 @@ The namespace is two levels deep, and exactly one distribution owns each level.
 |---|---|---|
 | `lemaitre` | `lemaitre` | **Lemaitre** (this repo) |
 | `lemaitre.initial_data` | `lemaitre-initial-data` | `LM-initial-data` — the umbrella |
-| `lemaitre.initial_data.conformally_flat` | `lemaitre-initial-data-conformally-flat` | `LMID-conformally-flat-puncture` |
-| `lemaitre.initial_data.curved` | `lemaitre-initial-data-curved` | `LMID-curved-puncture` |
+| `lemaitre.initial_data.conformally_flat_puncture` | `LMID-conformally-flat-puncture` | `LMID-conformally-flat-puncture` |
+| `lemaitre.initial_data.curved_puncture` | `LMID-curved-puncture` | `LMID-curved-puncture` |
 | `lemaitre.inspiral` | `lemaitre-inspiral` | `LM-inspiral` |
 
 Each domain is a git submodule of this repository; each installs, tests and
@@ -46,7 +46,7 @@ pip install -e LM-initial-data $E                              # the umbrella
 pip install -e LM-initial-data/LMID-conformally-flat-puncture $E
 pip install -e LM-initial-data/LMID-curved-puncture $E
 
-python -c "import lemaitre as lm; lm.initial_data.conformally_flat"   # smoke check
+python -c "import lemaitre as lm; lm.initial_data.conformally_flat_puncture"   # smoke check
 ```
 
 Installing a leaf pulls its own dependencies (`jax`, `numpy`, `scipy`,
