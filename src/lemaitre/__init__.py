@@ -22,6 +22,8 @@ namespace                                            distribution / repository
                                                      — its successor
 ``lemaitre.inspiral``                                ``lemaitre-inspiral``
                                                      — *LM-inspiral*
+``lemaitre.ringdown``                                ``lemaitre-ringdown``
+                                                     — *LM-ringdown*
 ===================================================  ==================================
 
 Each leaf's repository carries the same name as its distribution.

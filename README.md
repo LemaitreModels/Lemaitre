@@ -27,6 +27,7 @@ The namespace is two levels deep, and exactly one distribution owns each level.
 | `lemaitre.initial_data.conformally_flat_puncture` | `LMID-conformally-flat-puncture` | `LMID-conformally-flat-puncture` |
 | `lemaitre.initial_data.curved_puncture` | `LMID-curved-puncture` | `LMID-curved-puncture` |
 | `lemaitre.inspiral` | `lemaitre-inspiral` | `LM-inspiral` |
+| `lemaitre.ringdown` | `lemaitre-ringdown` | `LM-ringdown` |
 
 Each domain is a git submodule of this repository; each installs, tests and
 releases independently. `pkgutil.extend_path` merges the `lemaitre/` directories

@@ -4,3 +4,6 @@
 [submodule "LM-inspiral"]
 	path = LM-inspiral
 	url = git@github.com:LemaitreModels/LM-inspiral.git
+[submodule "LM-ringdown"]
+	path = LM-ringdown
+	url = git@github.com:LemaitreModels/LM-ringdown.git
