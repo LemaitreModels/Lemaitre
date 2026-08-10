@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lemaitre"
+version = "0.1.0"
+description = "Namespace root for the LemaitreModels package family (lemaitre.*)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Frederik De Ceuster" }]
+
+# Deliberately EMPTY.  The core is a pure namespace root: it ships one
+# `__init__.py` and nothing else, so every sibling distribution can depend on it
+# without dragging in jax/numpy/scipy/matplotlib.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+# src/ layout.  This distribution owns the `lemaitre` namespace root and ONLY
+# that — the `lemaitre.initial_data` level belongs to `lemaitre-initial-data`,
+# and each model leaf owns its own leaf package.
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["lemaitre"]
