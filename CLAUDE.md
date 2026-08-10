@@ -4,8 +4,8 @@ Guidance for Claude Code working in **Lemaitre**, the superproject of the
 LemaitreModels package family.
 
 > Keep this file current: when you add a family member, change the namespace
-> layout, or change the submodule cadence, update the relevant section before
-> finishing.
+> layout, change how the family is installed or run, or change the submodule
+> cadence, update the relevant section before finishing.
 
 ## What this repo is
 
@@ -39,6 +39,66 @@ Per-model guidance lives in the leaf repos, not here — e.g.
   leaf guards print this as `INSTALL_HINT` when they catch it.
 - **Tests live in the leaves.** Run `pytest -q` inside the repo you changed, not
   from here.
+
+## Environment and commands
+
+**The family shares the `BBHFM` micromamba environment** — the same one
+`BBHFM/CLAUDE.md`'s Commands section prescribes for the monorepo. There is no
+separate Lemaitre env, and there is no `python` on the bare `PATH`: the system
+`/usr/bin/python3` is 3.9, below every `requires-python = ">=3.10"` here, so an
+un-activated shell cannot run any of this.
+
+```bash
+micromamba activate BBHFM     # python 3.14.3; jax 0.10.1, numpy 2.4.3, scipy 1.17.1,
+                              # matplotlib 3.10.8, pytest 9.0.2 already live here
+```
+
+Non-interactive shells (agents, hooks, `sbatch`) cannot rely on `micromamba
+activate`; address the interpreter directly:
+
+```bash
+/Users/frederikd/micromamba/envs/BBHFM/bin/python -m pytest -q
+```
+
+**Install: all four distributions, editable, in dependency order.**
+
+```bash
+for d in . LM-initial-data \
+         LM-initial-data/LMID-conformally-flat-puncture \
+         LM-initial-data/LMID-curved-puncture ; do
+  python -m pip install -e "$d" --config-settings editable_mode=compat --no-deps
+done
+```
+
+`editable_mode=compat` is the ground rule above — without it the namespace
+silently degrades. `--no-deps` and the **order** go together: none of
+`lemaitre`, `lemaitre-initial-data`, `LMID-conformally-flat-puncture` is
+published, so pip must not try to resolve them from PyPI, and each must already
+be installed before its dependents. The solver stack (`jax`, `numpy`, `scipy`,
+`matplotlib`) comes from the env, not from these installs. Verify with the thing
+the leaf guards check — lazy attribute access through *both* namespace levels:
+
+```bash
+python -c "import lemaitre as lm; lm.initial_data.curved_puncture.operators; print('OK')"
+```
+
+**Running the suites.** Only the two initial-data leaves ship tests; the core,
+the `LM-initial-data` umbrella, `LM-inspiral` and `LM-ringdown` have none, so a
+bare `pytest` there collects nothing and that is not a failure.
+
+```bash
+caffeinate -i pytest -q                       # in LMID-curved-puncture: 17 tests, ~45 s
+caffeinate -i pytest -s -q tests/test_stage0.py   # -s: the gates print every measured number
+caffeinate -i pytest -q                       # in LMID-conformally-flat-puncture: 542 tests
+```
+
+The gate tests are written to *print* what they measured, so run them with `-s`
+whenever the number, not just the pass, is the point.
+
+One stale distribution shares the env: `LM-initial-data 0.1.0`, the
+pre-migration PARASOL package under `BBHFM/LemaitreModels/`, which owns the
+unrelated `lm.initial_data` root. It does not shadow `lemaitre.*` — but do not
+mistake it for `lemaitre-initial-data` when reading `pip list`.
 
 ## Working across the submodules
 
