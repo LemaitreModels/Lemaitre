@@ -1,6 +1,6 @@
 [submodule "LM-initial-data"]
 	path = LM-initial-data
 	url = git@github.com:LemaitreModels/LM-initial-data.git
-[submodule "LM-early-inspiral"]
-	path = LM-early-inspiral
-	url = git@github.com:LemaitreModels/LM-early-inspiral.git
+[submodule "LM-inspiral"]
+	path = LM-inspiral
+	url = git@github.com:LemaitreModels/LM-inspiral.git
