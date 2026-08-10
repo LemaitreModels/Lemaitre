@@ -24,7 +24,7 @@ namespace                                        distribution / repository
 ``lemaitre.initial_data.curved``                 ``lemaitre-initial-data-``
                                                  ``curved``
                                                  — *LMID-curved-puncture*
-``lemaitre.early_inspiral``                      ``lemaitre-early-inspiral``
+``lemaitre.inspiral``                            ``lemaitre-inspiral``
                                                  — *LM-inspiral*
 ===============================================  ==============================
 

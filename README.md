@@ -26,7 +26,7 @@ The namespace is two levels deep, and exactly one distribution owns each level.
 | `lemaitre.initial_data` | `lemaitre-initial-data` | `LM-initial-data` — the umbrella |
 | `lemaitre.initial_data.conformally_flat` | `lemaitre-initial-data-conformally-flat` | `LMID-conformally-flat-puncture` |
 | `lemaitre.initial_data.curved` | `lemaitre-initial-data-curved` | `LMID-curved-puncture` |
-| `lemaitre.early_inspiral` | `lemaitre-early-inspiral` | `LM-inspiral` |
+| `lemaitre.inspiral` | `lemaitre-inspiral` | `LM-inspiral` |
 
 Each domain is a git submodule of this repository; each installs, tests and
 releases independently. `pkgutil.extend_path` merges the `lemaitre/` directories
