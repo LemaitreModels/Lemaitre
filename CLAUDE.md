@@ -87,33 +87,64 @@ the `LM-initial-data` umbrella, `LM-inspiral` and `LM-ringdown` have none, so a
 bare `pytest` there collects nothing and that is not a failure.
 
 ```bash
-caffeinate -i pytest -q                       # in LMID-curved-puncture: 17 tests, ~45 s
+caffeinate -i pytest -q       # in LMID-conformally-flat-puncture: 542 tests, ~36 min
+caffeinate -i pytest -q       # in LMID-curved-puncture: 45 tests (1 xfail), ~28 min
 caffeinate -i pytest -s -q tests/test_stage0.py   # -s: the gates print every measured number
-caffeinate -i pytest -q                       # in LMID-conformally-flat-puncture: 542 tests
 ```
+
+Both full suites run for **tens of minutes** — start them in the background and
+do other work rather than blocking, and do **not** pipe them through `tail` or
+`head`: that buffers everything until pytest exits, so a run in progress is
+indistinguishable from a hung one.
+
+For a quick check that an install or a namespace change is sound,
+`tests/test_self_containment.py` alone takes under two seconds — 191 tests in the
+conformally-flat leaf, 20 in the curved one. Run it inside **one leaf at a
+time**: the two files share a basename, so pytest refuses to collect both in a
+single invocation (`import file mismatch`). That is the concrete reason for the
+"tests live in the leaves" ground rule above.
 
 The gate tests are written to *print* what they measured, so run them with `-s`
 whenever the number, not just the pass, is the point.
 
-**The umbrella's name collides with a stale distribution — resolve it before
-reinstalling.** `LM-initial-data` is *also* the name of the pre-migration
-PARASOL package under `BBHFM/LemaitreModels/LM-initial-data`, installed editable
-in this same env, owning the unrelated `lm.initial_data` root. Two distributions
-cannot share a name in one environment, so `pip install -e LM-initial-data`
-silently replaces it. Nothing shadows at import time — the roots are `lm` and
-`lemaitre` — and every `lm.initial_data` consumer lives inside that stale
-package's own tests and paper scripts, so retiring it costs nothing here. Do it
-deliberately, and drop the umbrella's own former name in the same pass:
+**The umbrella's name collides with a retired distribution — do not reinstall
+it.** `LM-initial-data` is *also* the name of the pre-migration PARASOL package
+under `BBHFM/LemaitreModels/LM-initial-data`, which owns the unrelated
+`lm.initial_data` root. Both normalise to the same
+`lm_initial_data-0.1.0.dist-info`, and two distributions cannot share a name in
+one environment, so installing the umbrella silently replaces it. PARASOL has
+therefore been **uninstalled** from the BBHFM env: `import lm` now raises
+`ModuleNotFoundError`, and since every `lm.initial_data` consumer lived inside
+that package's own tests and paper scripts, nothing else lost anything. Its
+source tree is untouched — `pip uninstall` on an editable install removes only
+the dist-info and the path hook — so use a *separate* env if you ever need
+PARASOL again.
+
+**After renaming a distribution, delete the old `.egg-info` by hand.**
+Uninstalling the old name is not sufficient. setuptools leaves the old-name
+`src/lemaitre_initial_data.egg-info` beside the newly built
+`src/LM_initial_data.egg-info`, and `editable_mode=compat` puts `src/` on
+`sys.path` — so `importlib.metadata` reads egg-info out of the *source tree* and
+`pip list` resurrects the phantom on the very next install, with an empty
+location column. The directories are gitignored and never tracked, so removing
+one is safe. This lists what the interpreter actually believes is installed,
+source-tree egg-info included, which `pip show` will not tell you — filter on the
+distribution *name*, never on the path, or every entry under `Lemaitre/` matches
+and the `site-packages` ones appear to be missing:
 
 ```bash
-pip show -f LM-initial-data | head -3    # confirm the BBHFM/LemaitreModels path
-pip uninstall -y LM-initial-data         # the stale PARASOL package
-pip uninstall -y lemaitre-initial-data   # the umbrella's pre-rename dist-info
+python -c "
+from importlib.metadata import distributions
+for d in sorted(distributions(), key=lambda d: ((d.metadata['Name'] or '').lower(), str(d._path))):
+    n = d.metadata['Name'] or ''
+    if n.lower().startswith(('lemaitre','lm-','lm_','lmid')): print(f'{n:32s} {d.version}  {d._path}')"
 ```
 
-Then run the install loop above. Skipping the second line leaves a phantom
-`lemaitre-initial-data` editable install pointing at the same source tree — pip
-cannot connect the two names, so it never removes it for you.
+Expect **eight lines: four names, each appearing twice** — once as a `.dist-info`
+in `site-packages` and once as its own `.egg-info` in the source tree, since
+`editable_mode=compat` puts every `src/` on `sys.path`. Both entries per name are
+normal. The phantom's signature is a *fifth* name whose **only** entry is a
+source-tree egg-info, with no `site-packages` dist-info to match it.
 
 ## Working across the submodules
 
