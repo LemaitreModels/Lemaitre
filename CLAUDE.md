@@ -21,7 +21,7 @@ Per-model guidance lives in the leaf repos, not here — e.g.
 ## Ground rules (load-bearing)
 
 - **Exactly one distribution owns each namespace level.** `lemaitre` belongs to
-  this repo, `lemaitre.initial_data` to `lemaitre-initial-data`, and each model
+  this repo, `lemaitre.initial_data` to `LM-initial-data`, and each model
   owns only its own leaf package. A leaf must **not** ship
   `src/lemaitre/__init__.py` or `src/lemaitre/initial_data/__init__.py` — a copy
   would shadow the owner non-deterministically. Each leaf's
@@ -72,7 +72,7 @@ done
 
 `editable_mode=compat` is the ground rule above — without it the namespace
 silently degrades. `--no-deps` and the **order** go together: none of
-`lemaitre`, `lemaitre-initial-data`, `LMID-conformally-flat-puncture` is
+`lemaitre`, `LM-initial-data`, `LMID-conformally-flat-puncture` is
 published, so pip must not try to resolve them from PyPI, and each must already
 be installed before its dependents. The solver stack (`jax`, `numpy`, `scipy`,
 `matplotlib`) comes from the env, not from these installs. Verify with the thing
@@ -95,10 +95,25 @@ caffeinate -i pytest -q                       # in LMID-conformally-flat-punctur
 The gate tests are written to *print* what they measured, so run them with `-s`
 whenever the number, not just the pass, is the point.
 
-One stale distribution shares the env: `LM-initial-data 0.1.0`, the
-pre-migration PARASOL package under `BBHFM/LemaitreModels/`, which owns the
-unrelated `lm.initial_data` root. It does not shadow `lemaitre.*` — but do not
-mistake it for `lemaitre-initial-data` when reading `pip list`.
+**The umbrella's name collides with a stale distribution — resolve it before
+reinstalling.** `LM-initial-data` is *also* the name of the pre-migration
+PARASOL package under `BBHFM/LemaitreModels/LM-initial-data`, installed editable
+in this same env, owning the unrelated `lm.initial_data` root. Two distributions
+cannot share a name in one environment, so `pip install -e LM-initial-data`
+silently replaces it. Nothing shadows at import time — the roots are `lm` and
+`lemaitre` — and every `lm.initial_data` consumer lives inside that stale
+package's own tests and paper scripts, so retiring it costs nothing here. Do it
+deliberately, and drop the umbrella's own former name in the same pass:
+
+```bash
+pip show -f LM-initial-data | head -3    # confirm the BBHFM/LemaitreModels path
+pip uninstall -y LM-initial-data         # the stale PARASOL package
+pip uninstall -y lemaitre-initial-data   # the umbrella's pre-rename dist-info
+```
+
+Then run the install loop above. Skipping the second line leaves a phantom
+`lemaitre-initial-data` editable install pointing at the same source tree — pip
+cannot connect the two names, so it never removes it for you.
 
 ## Working across the submodules
 

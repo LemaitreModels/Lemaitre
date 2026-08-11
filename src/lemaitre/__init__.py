@@ -14,19 +14,18 @@ namespace                                            distribution / repository
 ===================================================  ==================================
 ``lemaitre``                                         ``lemaitre`` (this file)
                                                      — *Lemaitre*
-``lemaitre.initial_data``                            ``lemaitre-initial-data``
-                                                     — *LM-initial-data*, the umbrella
+``lemaitre.initial_data``                            ``LM-initial-data``
+                                                     — the umbrella
 ``lemaitre.initial_data.conformally_flat_puncture``  ``LMID-conformally-flat-puncture``
                                                      — the paper package
 ``lemaitre.initial_data.curved_puncture``            ``LMID-curved-puncture``
                                                      — its successor
-``lemaitre.inspiral``                                ``lemaitre-inspiral``
-                                                     — *LM-inspiral*
-``lemaitre.ringdown``                                ``lemaitre-ringdown``
-                                                     — *LM-ringdown*
+``lemaitre.inspiral``                                ``LM-inspiral``
+``lemaitre.ringdown``                                ``LM-ringdown``
 ===================================================  ==================================
 
-Each leaf's repository carries the same name as its distribution.
+Every distribution carries the name of its repository — the core's ``lemaitre``
+and *Lemaitre* differ only in case, which packaging normalises away.
 
 ``lemaitre.initial_data`` is itself a namespace level: the umbrella owns its
 ``__init__.py`` and the two puncture leaves add only their own leaf package, so

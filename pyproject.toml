@@ -20,7 +20,7 @@ dependencies = []
 dev = ["pytest"]
 
 # src/ layout.  This distribution owns the `lemaitre` namespace root and ONLY
-# that — the `lemaitre.initial_data` level belongs to `lemaitre-initial-data`,
+# that — the `lemaitre.initial_data` level belongs to `LM-initial-data`,
 # and each model leaf owns its own leaf package.
 [tool.setuptools.packages.find]
 where = ["src"]
