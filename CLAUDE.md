@@ -88,7 +88,7 @@ bare `pytest` there collects nothing and that is not a failure.
 
 ```bash
 caffeinate -i pytest -q       # in LMID-conformally-flat-puncture: 542 tests, ~36 min
-caffeinate -i pytest -q       # in LMID-curved-puncture: 77 tests (1 xfail), ~65 min
+caffeinate -i pytest -q       # in LMID-curved-puncture: 91 tests (1 xfail), ~75 min
 caffeinate -i pytest -s -q tests/test_stage0.py   # -s: the gates print every measured number
 ```
 
