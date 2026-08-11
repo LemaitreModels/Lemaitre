@@ -88,7 +88,7 @@ bare `pytest` there collects nothing and that is not a failure.
 
 ```bash
 caffeinate -i pytest -q       # in LMID-conformally-flat-puncture: 542 tests, ~36 min
-caffeinate -i pytest -q       # in LMID-curved-puncture: 45 tests (1 xfail), ~28 min
+caffeinate -i pytest -q       # in LMID-curved-puncture: 77 tests (1 xfail), ~65 min
 caffeinate -i pytest -s -q tests/test_stage0.py   # -s: the gates print every measured number
 ```
 
@@ -99,7 +99,7 @@ indistinguishable from a hung one.
 
 For a quick check that an install or a namespace change is sound,
 `tests/test_self_containment.py` alone takes under two seconds — 191 tests in the
-conformally-flat leaf, 20 in the curved one. Run it inside **one leaf at a
+conformally-flat leaf, 22 in the curved one. Run it inside **one leaf at a
 time**: the two files share a basename, so pytest refuses to collect both in a
 single invocation (`import file mismatch`). That is the concrete reason for the
 "tests live in the leaves" ground rule above.
