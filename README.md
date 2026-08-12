@@ -26,8 +26,9 @@ The namespace is two levels deep, and exactly one distribution owns each level.
 | `lemaitre.initial_data` | `LM-initial-data` | `LM-initial-data` — the umbrella |
 | `lemaitre.initial_data.conformally_flat_puncture` | `LMID-conformally-flat-puncture` | `LMID-conformally-flat-puncture` |
 | `lemaitre.initial_data.curved_puncture` | `LMID-curved-puncture` | `LMID-curved-puncture` |
-| `lemaitre.inspiral` | `LM-inspiral` | `LM-inspiral` |
-| `lemaitre.ringdown` | `LM-ringdown` | `LM-ringdown` |
+| `lemaitre.inspiral` | `LM-inspiral` | `LM-inspiral` — the umbrella |
+| `lemaitre.inspiral.radiative_puncture` | *(not packaged yet)* | `LMI-radiative-puncture` |
+| `lemaitre.ringdown` | `LM-ringdown` | `LM-ringdown` — *not packaged yet* |
 
 Each domain is a git submodule of this repository; each installs, tests and
 releases independently. `pkgutil.extend_path` merges the `lemaitre/` directories
@@ -43,9 +44,10 @@ cd Lemaitre
 
 E="--config-settings editable_mode=compat"
 pip install -e . $E                                            # the core
-pip install -e LM-initial-data $E                              # the umbrella
+pip install -e LM-initial-data $E                              # the initial-data umbrella
 pip install -e LM-initial-data/LMID-conformally-flat-puncture $E
 pip install -e LM-initial-data/LMID-curved-puncture $E
+pip install -e LM-inspiral $E                                  # the inspiral umbrella
 
 python -c "import lemaitre as lm; lm.initial_data.conformally_flat_puncture"   # smoke check
 ```

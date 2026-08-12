@@ -60,20 +60,27 @@ activate`; address the interpreter directly:
 /Users/frederikd/micromamba/envs/BBHFM/bin/python -m pytest -q
 ```
 
-**Install: all four distributions, editable, in dependency order.**
+**Install: all five distributions, editable, in dependency order.**
 
 ```bash
 for d in . LM-initial-data \
          LM-initial-data/LMID-conformally-flat-puncture \
-         LM-initial-data/LMID-curved-puncture ; do
+         LM-initial-data/LMID-curved-puncture \
+         LM-inspiral ; do
   python -m pip install -e "$d" --config-settings editable_mode=compat --no-deps
 done
 ```
 
+`LM-inspiral` is last because its future leaf depends on `LMID-curved-puncture`;
+the umbrella itself needs only the core. Its own leaf,
+`LM-inspiral/LMI-radiative-puncture`, ships no `pyproject.toml` yet and so is not
+in the list — `lm.inspiral` resolves, `lm.inspiral.radiative_puncture` raises
+`AttributeError` until it does.
+
 `editable_mode=compat` is the ground rule above — without it the namespace
 silently degrades. `--no-deps` and the **order** go together: none of
-`lemaitre`, `LM-initial-data`, `LMID-conformally-flat-puncture` is
-published, so pip must not try to resolve them from PyPI, and each must already
+`lemaitre`, `LM-initial-data`, `LMID-conformally-flat-puncture` or `LM-inspiral`
+is published, so pip must not try to resolve them from PyPI, and each must already
 be installed before its dependents. The solver stack (`jax`, `numpy`, `scipy`,
 `matplotlib`) comes from the env, not from these installs. Verify with the thing
 the leaf guards check — lazy attribute access through *both* namespace levels:
