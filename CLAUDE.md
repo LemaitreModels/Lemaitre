@@ -42,23 +42,29 @@ Per-model guidance lives in the leaf repos, not here — e.g.
 
 ## Environment and commands
 
-**The family shares the `BBHFM` micromamba environment** — the same one
-`BBHFM/CLAUDE.md`'s Commands section prescribes for the monorepo. There is no
-separate Lemaitre env, and there is no `python` on the bare `PATH`: the system
+**Give the family a dedicated environment.** One Python ≥ 3.10 environment holding
+the solver stack (`jax`, `numpy`, `scipy`, `matplotlib`) plus `pytest` and `mpmath`,
+with all five distributions installed editable as below. Do **not** share it with an
+unrelated project: distribution names normalise, so a name collision silently
+replaces a family member rather than erroring — the PARASOL note below is that
+mistake, already made once. And do not expect a bare `PATH` to work: a stock macOS
 `/usr/bin/python3` is 3.9, below every `requires-python = ">=3.10"` here, so an
 un-activated shell cannot run any of this.
 
-```bash
-micromamba activate BBHFM     # python 3.14.3; jax 0.10.1, numpy 2.4.3, scipy 1.17.1,
-                              # matplotlib 3.10.8, pytest 9.0.2 already live here
-```
-
-Non-interactive shells (agents, hooks, `sbatch`) cannot rely on `micromamba
-activate`; address the interpreter directly:
+Non-interactive shells (agents, hooks, `sbatch`) cannot rely on `activate` — it is a
+shell function. Address the environment's interpreter by absolute path instead:
 
 ```bash
-/Users/frederikd/micromamba/envs/BBHFM/bin/python -m pytest -q
+"$CONDA_PREFIX/bin/python" -m pytest -q          # inside an activated env
+/path/to/envs/<your-env>/bin/python -m pytest -q # from anywhere
 ```
+
+**Which clone is on the path matters more than it looks.** If two clones of this
+superproject exist on one machine, `pkgutil.extend_path` merges both into one
+`lemaitre` package, so a suite run in clone A can import its package from clone B
+and pass without ever executing the source you edited. Before trusting a result,
+check `python -c "import lemaitre; print(lemaitre.__file__)"` points where you
+expect — and install the whole family from one clone.
 
 **Install: all five distributions, editable, in dependency order.**
 
