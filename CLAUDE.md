@@ -66,22 +66,24 @@ and pass without ever executing the source you edited. Before trusting a result,
 check `python -c "import lemaitre; print(lemaitre.__file__)"` points where you
 expect — and install the whole family from one clone.
 
-**Install: all five distributions, editable, in dependency order.**
+**Install: all six distributions, editable, in dependency order.**
 
 ```bash
 for d in . LM-initial-data \
          LM-initial-data/LMID-conformally-flat-puncture \
          LM-initial-data/LMID-curved-puncture \
-         LM-inspiral ; do
+         LM-inspiral \
+         LM-inspiral/LMI-radiative-puncture ; do
   python -m pip install -e "$d" --config-settings editable_mode=compat --no-deps
 done
 ```
 
-`LM-inspiral` is last because its future leaf depends on `LMID-curved-puncture`;
-the umbrella itself needs only the core. Its own leaf,
-`LM-inspiral/LMI-radiative-puncture`, ships no `pyproject.toml` yet and so is not
-in the list — `lm.inspiral` resolves, `lm.inspiral.radiative_puncture` raises
-`AttributeError` until it does.
+`LM-inspiral` comes after `LMID-curved-puncture` because its leaf depends on it;
+the umbrella itself needs only the core. That leaf,
+`LM-inspiral/LMI-radiative-puncture`, **gained its `pyproject.toml` on 2026-08-14**
+and is now installed last — both `lemaitre.inspiral` and
+`lemaitre.inspiral.radiative_puncture` resolve. `LM-ringdown` still ships none, so
+it is not in the list.
 
 `editable_mode=compat` is the ground rule above — without it the namespace
 silently degrades. `--no-deps` and the **order** go together: none of
