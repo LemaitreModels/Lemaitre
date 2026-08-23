@@ -1,9 +1,11 @@
 [submodule "LM-initial-data"]
 	path = LM-initial-data
-	url = git@github.com:LemaitreModels/LM-initial-data.git
+	url = ../LM-initial-data.git
 [submodule "LM-inspiral"]
 	path = LM-inspiral
-	url = git@github.com:LemaitreModels/LM-inspiral.git
+	url = ../LM-inspiral.git
+	update = none
 [submodule "LM-ringdown"]
 	path = LM-ringdown
-	url = git@github.com:LemaitreModels/LM-ringdown.git
+	url = ../LM-ringdown.git
+	update = none

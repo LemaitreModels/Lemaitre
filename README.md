@@ -36,10 +36,19 @@ found on `sys.path` into one package, and a PEP 562 `__getattr__` imports
 subpackages lazily, so `import lemaitre` alone is enough to reach any installed
 member.
 
+> **Not every member is released yet.** `LM-initial-data` and
+> `LMID-conformally-flat-puncture` are public; `LMID-curved-puncture`,
+> `LM-inspiral` and `LM-ringdown` accompany papers still in preparation and their
+> repositories are not open yet. They are marked `update = none` in
+> `.gitmodules`, so `git clone --recurse-submodules` **succeeds** and simply
+> leaves those directories empty rather than failing on them. Nothing you can
+> install depends on them. Once they are released, `git submodule update --init
+> --recursive --checkout` picks them up.
+
 ## Install
 
 ```bash
-git clone --recurse-submodules git@github.com:LemaitreModels/Lemaitre.git
+git clone --recurse-submodules https://github.com/LemaitreModels/Lemaitre.git
 cd Lemaitre
 
 E="--config-settings editable_mode=compat"
