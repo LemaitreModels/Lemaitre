@@ -86,12 +86,16 @@ and is now installed last — both `lemaitre.inspiral` and
 it is not in the list.
 
 `editable_mode=compat` is the ground rule above — without it the namespace
-silently degrades. `--no-deps` and the **order** go together: none of
-`lemaitre`, `LM-initial-data`, `LMID-conformally-flat-puncture` or `LM-inspiral`
-is published, so pip must not try to resolve them from PyPI, and each must already
-be installed before its dependents. The solver stack (`jax`, `numpy`, `scipy`,
-`matplotlib`) comes from the env, not from these installs. Verify with the thing
-the leaf guards check — lazy attribute access through *both* namespace levels:
+silently degrades. `--no-deps` and the **order** go together, and the reason is
+the opposite of the obvious one: `lemaitre` and `LM-initial-data` **are** on PyPI
+(both 0.1.0, ours, checked 2026-08-23), so without `--no-deps` pip *succeeds* in
+resolving the two namespace parents from the index instead of your checkout — and
+you then test a published parent against a local child, with nothing to tell you.
+The five model distributions are not published, so for those pip would merely
+fail. Each must also already be installed before its dependents, hence the
+order. The solver stack (`jax`, `numpy`, `scipy`, `matplotlib`) comes from the
+env, not from these installs. Verify with the thing the leaf guards check — lazy
+attribute access through *both* namespace levels:
 
 ```bash
 python -c "import lemaitre as lm; lm.initial_data.curved_puncture.operators; print('OK')"
@@ -102,8 +106,8 @@ the `LM-initial-data` umbrella, `LM-inspiral` and `LM-ringdown` have none, so a
 bare `pytest` there collects nothing and that is not a failure.
 
 ```bash
-caffeinate -i pytest -q       # in LMID-conformally-flat-puncture: 542 tests, ~36 min
-caffeinate -i pytest -q       # in LMID-curved-puncture: 91 tests (1 xfail), ~75 min
+caffeinate -i pytest -q       # in LMID-conformally-flat-puncture: 693 tests collected
+caffeinate -i pytest -q       # in LMID-curved-puncture: 244 tests collected
 caffeinate -i pytest -s -q tests/test_stage0.py   # -s: the gates print every measured number
 ```
 
@@ -113,8 +117,8 @@ do other work rather than blocking, and do **not** pipe them through `tail` or
 indistinguishable from a hung one.
 
 For a quick check that an install or a namespace change is sound,
-`tests/test_self_containment.py` alone takes under two seconds — 191 tests in the
-conformally-flat leaf, 22 in the curved one. Run it inside **one leaf at a
+`tests/test_self_containment.py` alone takes under two seconds — 187 tests in the
+conformally-flat leaf, 44 in the curved one. Run it inside **one leaf at a
 time**: the two files share a basename, so pytest refuses to collect both in a
 single invocation (`import file mismatch`). That is the concrete reason for the
 "tests live in the leaves" ground rule above.
@@ -155,11 +159,17 @@ for d in sorted(distributions(), key=lambda d: ((d.metadata['Name'] or '').lower
     if n.lower().startswith(('lemaitre','lm-','lm_','lmid')): print(f'{n:32s} {d.version}  {d._path}')"
 ```
 
-Expect **eight lines: four names, each appearing twice** — once as a `.dist-info`
-in `site-packages` and once as its own `.egg-info` in the source tree, since
+Expect **two lines per installed distribution** — one `.dist-info` in
+`site-packages` and one `.egg-info` in the source tree, since
 `editable_mode=compat` puts every `src/` on `sys.path`. Both entries per name are
-normal. The phantom's signature is a *fifth* name whose **only** entry is a
-source-tree egg-info, with no `site-packages` dist-info to match it.
+normal, so the install list above should give **six names, twelve lines**. (A
+tally of five names / ten lines means `LMI-radiative-puncture` was skipped — it
+only gained a `pyproject.toml` on 2026-08-14, and an environment built before
+that will be missing it.)
+
+The phantom's signature is different, and independent of the tally: an **extra**
+name whose *only* entry is a source-tree egg-info, with no `site-packages`
+dist-info to match it.
 
 ## Working across the submodules
 
