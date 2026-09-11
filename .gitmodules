@@ -9,3 +9,9 @@
 	path = LM-ringdown
 	url = ../LM-ringdown.git
 	update = none
+[submodule "LM-neural"]
+	path = LM-neural
+	url = ../LM-neural.git
+[submodule "LM-tensor"]
+	path = LM-tensor
+	url = ../LM-tensor.git
