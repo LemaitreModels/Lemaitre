@@ -12,6 +12,8 @@
 [submodule "LM-neural"]
 	path = LM-neural
 	url = ../LM-neural.git
+	update = none
 [submodule "LM-tensor"]
 	path = LM-tensor
 	url = ../LM-tensor.git
+	update = none
