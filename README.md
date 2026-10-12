@@ -26,8 +26,8 @@ The namespace is two levels deep, and exactly one distribution owns each level.
 | `lemaitre.initial_data` | `LM-initial-data` | `LM-initial-data` — the umbrella |
 | `lemaitre.initial_data.conformally_flat_puncture` | `LMID-conformally-flat-puncture` | `LMID-conformally-flat-puncture` |
 | `lemaitre.initial_data.curved_puncture` | `LMID-curved-puncture` | `LMID-curved-puncture` |
+| `lemaitre.initial_data.radiative_puncture` | `LMID-radiative-puncture` | `LMID-radiative-puncture` |
 | `lemaitre.inspiral` | `LM-inspiral` | `LM-inspiral` — the umbrella |
-| `lemaitre.inspiral.radiative_puncture` | *(not packaged yet)* | `LMI-radiative-puncture` |
 | `lemaitre.ringdown` | `LM-ringdown` | `LM-ringdown` — *not packaged yet* |
 
 Each domain is a git submodule of this repository; each installs, tests and
@@ -38,7 +38,7 @@ member.
 
 > **Not every member is released yet.** `LM-initial-data` and
 > `LMID-conformally-flat-puncture` are public; `LMID-curved-puncture`,
-> `LM-inspiral` and `LM-ringdown` accompany papers still in preparation and their
+> `LMID-radiative-puncture`, `LM-inspiral` and `LM-ringdown` accompany papers still in preparation and their
 > repositories are not open yet. They are marked `update = none` in
 > `.gitmodules`, so `git clone --recurse-submodules` **succeeds** and simply
 > leaves those directories empty rather than failing on them. Nothing you can
@@ -56,6 +56,7 @@ pip install -e . $E                                            # the core
 pip install -e LM-initial-data $E                              # the initial-data umbrella
 pip install -e LM-initial-data/LMID-conformally-flat-puncture $E
 pip install -e LM-initial-data/LMID-curved-puncture $E
+pip install -e LM-initial-data/LMID-radiative-puncture $E
 pip install -e LM-inspiral $E                                  # the inspiral umbrella
 
 python -c "import lemaitre as lm; lm.initial_data.conformally_flat_puncture"   # smoke check

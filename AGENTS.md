@@ -28,7 +28,7 @@ before working inside it:
 |---|---|
 | `lemaitre.initial_data.conformally_flat_puncture` | `LM-initial-data/LMID-conformally-flat-puncture/AGENTS.md` |
 | `lemaitre.initial_data.curved_puncture` | `LM-initial-data/LMID-curved-puncture/AGENTS.md` |
-| `lemaitre.inspiral.radiative_puncture` | `LM-inspiral/LMI-radiative-puncture/AGENTS.md` |
+| `lemaitre.initial_data.radiative_puncture` | `LM-initial-data/LMID-radiative-puncture/AGENTS.md` |
 | `lemaitre.neural.puncture_field` | `LM-neural/LMN-puncture-field/AGENTS.md` |
 
 The umbrellas (`LM-initial-data`, `LM-inspiral`, `LM-neural`) ship only a namespace
@@ -90,20 +90,18 @@ expect — and install the whole family from one clone.
 for d in . LM-initial-data \
          LM-initial-data/LMID-conformally-flat-puncture \
          LM-initial-data/LMID-curved-puncture \
+         LM-initial-data/LMID-radiative-puncture \
          LM-inspiral \
-         LM-inspiral/LMI-radiative-puncture \
          LM-neural \
          LM-neural/LMN-puncture-field ; do
   python -m pip install -e "$d" --config-settings editable_mode=compat --no-deps
 done
 ```
 
-`LM-inspiral` comes after `LMID-curved-puncture` because its leaf depends on it;
-the umbrella itself needs only the core. That leaf,
-`LM-inspiral/LMI-radiative-puncture`, **gained its `pyproject.toml` on 2026-08-14**
-and is now installed last — both `lemaitre.inspiral` and
-`lemaitre.inspiral.radiative_puncture` resolve. `LM-ringdown` still ships none, so
-it is not in the list.
+`LMID-radiative-puncture` comes after `LMID-curved-puncture` because it depends on
+it. It lived in `LM-inspiral` as `LMI-radiative-puncture` until 2026-10-12; that
+umbrella now has no leaf and needs only the core. `LM-ringdown` still ships no
+`pyproject.toml`, so it is not in the list.
 
 `editable_mode=compat` is the ground rule above — without it the namespace
 silently degrades. `--no-deps` and the **order** go together, and the reason is
@@ -189,8 +187,9 @@ Expect **two lines per installed distribution** — one `.dist-info` in
 `editable_mode=compat` puts every `src/` on `sys.path`. Both entries per name are
 normal, so the install list above should give **eight names, sixteen lines**
 (checked 2026-10-06). A short tally means a leaf added after the environment was
-built was skipped — `LMI-radiative-puncture` gained its `pyproject.toml` on
-2026-08-14 and the `LM-neural` pair arrived in September; re-run the install loop.
+built was skipped — the `LM-neural` pair arrived in September, and
+`LMID-radiative-puncture` is the 2026-10-12 rename of `LMI-radiative-puncture`
+(uninstall the old name); re-run the install loop.
 
 The phantom's signature is different, and independent of the tally: an **extra**
 name whose *only* entry is a source-tree egg-info, with no `site-packages`
