@@ -23,4 +23,5 @@
 	update = none
 [submodule "LM-head-on"]
 	path = LM-head-on
-	url = git@github.com:LemaitreModels/LM-head-on.git
+	url = ../LM-head-on.git
+	update = none
