@@ -32,9 +32,10 @@ before working inside it:
 | `lemaitre.neural.puncture_field` | `LM-neural/LMN-puncture-field/AGENTS.md` |
 
 The umbrellas (`LM-initial-data`, `LM-inspiral`, `LM-neural`) ship only a namespace
-`__init__.py`, and `LM-ringdown` and `LM-tensor` no code yet, so none of them has a file
-of its own; this one covers them. A repo that gains code gets an `AGENTS.md` and its
-`CLAUDE.md` stub in the same commit.
+`__init__.py`, and `LM-ringdown`, `LM-tensor` and `LM-observe` no code yet, so none of them
+has a file of its own; this one covers them. `LM-observe`'s leaf is deliberately outside
+the namespace: it uses only public waveform models and data and never imports `lemaitre`.
+A repo that gains code gets an `AGENTS.md` and its `CLAUDE.md` stub in the same commit.
 
 ## Ground rules (load-bearing)
 

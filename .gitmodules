@@ -17,3 +17,10 @@
 	path = LM-tensor
 	url = ../LM-tensor.git
 	update = none
+[submodule "LM-observe"]
+	path = LM-observe
+	url = ../LM-observe.git
+	update = none
+[submodule "LM-head-on"]
+	path = LM-head-on
+	url = git@github.com:LemaitreModels/LM-head-on.git
