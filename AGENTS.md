@@ -140,6 +140,30 @@ do other work rather than blocking, and do **not** pipe them through `tail` or
 `head`: that buffers everything until pytest exits, so a run in progress is
 indistinguishable from a hung one.
 
+**Every suite has the same tiers, as Makefile targets** (since 2026-10-17):
+
+| target | runs | when |
+|---|---|---|
+| `make fast` | the structural guards | seconds; after any install or namespace change |
+| `make dev` | quick-tier tests whose executed lines changed (`pytest-testmon`) | the edit loop |
+| `make test-quick` | `--tier quick`, 4 workers | before asking for review |
+| `make test` | everything, 4 workers (`pytest-xdist`, `--dist loadfile`) | **before every commit** |
+| `make test-serial` | everything in one process, `-s` | when the printed numbers are the point |
+| `make durations` | everything, re-recording `tests/durations.json` | after adding tests; commit the file |
+
+`--tier quick` drops tests marked `slow` **and** tests recorded slower than 60 s in
+`tests/durations.json`, keeps any marked `essential`, and keeps a test that has not
+been measured yet. It is implemented by `tests/pytest_tiers.py`, which is
+**byte-identical in every suite** — change all copies together, never one. Every run
+prints a tier line, and a quick-tier run over its 600 s budget prints a warning:
+that is the signal to `make durations`, not to raise the budget. Do not mark a gate
+`slow` to speed up your loop — mark it `essential` if it must stay in every tier.
+
+`make dev` and `make test-quick` are development tools. `pytest-testmon` cannot see
+data files, committed artifacts or edits in a sibling leaf, and the quick tier skips
+gates by design, so neither replaces `make test` before a commit. Parallel runs
+swallow `-s` output; use `make test-serial` (or `NPROC=1`) to read what a gate measured.
+
 For a quick check that an install or a namespace change is sound,
 `tests/test_self_containment.py` alone takes under two seconds — 189 tests in the
 conformally-flat leaf, 48 in the curved one (2026-10-06). Run it inside **one leaf at a
