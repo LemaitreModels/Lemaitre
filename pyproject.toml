@@ -18,6 +18,9 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = ["pytest"]
+# The family site (docs/, the Read the Docs parent project); optional, so the core
+# keeps no runtime dependencies.
+docs = ["sphinx", "furo", "myst-parser"]
 
 # src/ layout.  This distribution owns the `lemaitre` namespace root and ONLY
 # that — the `lemaitre.initial_data` level belongs to `LM-initial-data`,

@@ -1,0 +1,18 @@
+# Read the Docs build for the Lemaitre family site (the parent project). The
+# models' own documentation is built in their repositories, as subprojects.
+version: 2
+
+build:
+  os: ubuntu-24.04
+  tools:
+    python: "3.12"
+
+python:
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
+
+sphinx:
+  configuration: docs/conf.py

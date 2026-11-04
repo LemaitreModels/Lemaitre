@@ -37,6 +37,14 @@ has a file of its own; this one covers them. `LM-observe`'s leaf is deliberately
 the namespace: it uses only public waveform models and data and never imports `lemaitre`.
 A repo that gains code gets an `AGENTS.md` and its `CLAUDE.md` stub in the same commit.
 
+**Documentation** is on Read the Docs. This repo's `docs/` is the parent project, the family's
+front page (`lemaitre.readthedocs.io`). Each released model is a subproject built from its own
+repository's `docs/` and `.readthedocs.yaml` and versioned with its code
+(`/projects/<repo-name-lowercase>/`). Read the Docs allows one level of subprojects, so every model
+hangs directly under this one and the umbrellas have no project of their own. When a model is released, add
+its row and toctree link to `docs/index.md`, and add it as a subproject in the parent's settings.
+`docs/_static/` is a copy of LemaitreArtwork's `style/`; never edit it here.
+
 ## Ground rules (load-bearing)
 
 - **Exactly one distribution owns each namespace level.** `lemaitre` belongs to

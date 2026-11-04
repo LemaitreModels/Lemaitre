@@ -1,0 +1,53 @@
+/* furo, recoloured with the Lemaitre style tokens (lemaitre-tokens.css, copied from
+   LemaitreArtwork/style/; re-copy it rather than editing it here). */
+
+body {
+  --font-stack: var(--lm-font-serif);
+  --font-stack--monospace: var(--lm-font-mono);
+  --font-stack--headings: var(--lm-font-serif);
+}
+
+/* The mapping is mode-agnostic (it reads --lm-*), so one block serves both modes. Its selectors
+   match the specificity of furo's own dark-mode selectors, and this file loads after furo. */
+body,
+body[data-theme],
+body:not([data-theme="light"]) {
+  --color-background-primary: var(--lm-paper);
+  --color-background-secondary: var(--lm-soft);
+  --color-background-hover: var(--lm-soft);
+  --color-background-border: var(--lm-rule);
+  --color-foreground-primary: var(--lm-ink);
+  --color-foreground-secondary: var(--lm-muted);
+  --color-foreground-muted: var(--lm-muted);
+  --color-foreground-border: var(--lm-rule);
+  --color-brand-primary: var(--lm-accent);
+  --color-brand-content: var(--lm-accent);
+  --color-code-background: var(--lm-soft);
+  --color-code-foreground: var(--lm-ink);
+  --color-sidebar-background: var(--lm-paper);
+  --color-sidebar-background-border: var(--lm-rule);
+  --color-admonition-background: var(--lm-soft);
+  --color-inline-code-background: var(--lm-soft);
+  --color-api-background: var(--lm-soft);
+  --color-highlight-on-target: var(--lm-soft);
+}
+
+/* furo switches by body[data-theme]; feed it the dark tokens. */
+body[data-theme="dark"] {
+  --lm-paper: #1c1d19; --lm-ink: #e8e4d8; --lm-muted: #a5a597;
+  --lm-rule: #45463d; --lm-soft: #26271f; --lm-accent: #b4bd9d;
+}
+@media (prefers-color-scheme: dark) {
+  body:not([data-theme="light"]) {
+    --lm-paper: #1c1d19; --lm-ink: #e8e4d8; --lm-muted: #a5a597;
+    --lm-rule: #45463d; --lm-soft: #26271f; --lm-accent: #b4bd9d;
+  }
+}
+
+/* Ink-on-paper restraint: regular-weight headings, square corners, no shadows. */
+h1, h2, h3, h4 { font-weight: 400; letter-spacing: -0.02em; }
+h1 { letter-spacing: -0.035em; }
+.sidebar-brand-text { font-size: 1.5rem; letter-spacing: -0.03em; font-weight: 400; }
+.admonition, pre, .highlight, code.literal, .sig { border-radius: 0 !important; box-shadow: none !important; }
+article img { mix-blend-mode: multiply; }
+body[data-theme="dark"] article img { mix-blend-mode: normal; }
