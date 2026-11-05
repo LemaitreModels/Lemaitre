@@ -1,10 +1,11 @@
 /* furo, recoloured with the Lemaitre style tokens (lemaitre-tokens.css, copied from
-   LemaitreArtwork/style/; re-copy it rather than editing it here). */
+   LemaitreArtwork/style/; re-copy it rather than editing it here). Every furo colour that would
+   otherwise fall back to its default blue/purple is mapped here, so only the tokens show. */
 
 body {
-  --font-stack: var(--lm-font-serif);
+  --font-stack: var(--lm-font-text);
   --font-stack--monospace: var(--lm-font-mono);
-  --font-stack--headings: var(--lm-font-serif);
+  --font-stack--headings: var(--lm-font-display);
 }
 
 /* The mapping is mode-agnostic (it reads --lm-*), so one block serves both modes. Its selectors
@@ -15,39 +16,130 @@ body:not([data-theme="light"]) {
   --color-background-primary: var(--lm-paper);
   --color-background-secondary: var(--lm-soft);
   --color-background-hover: var(--lm-soft);
+  --color-background-hover--transparent: transparent;
   --color-background-border: var(--lm-rule);
+  --color-background-item: var(--lm-muted);
   --color-foreground-primary: var(--lm-ink);
   --color-foreground-secondary: var(--lm-muted);
   --color-foreground-muted: var(--lm-muted);
   --color-foreground-border: var(--lm-rule);
   --color-brand-primary: var(--lm-accent);
   --color-brand-content: var(--lm-accent);
+  --color-brand-visited: var(--lm-accent);
+  --color-link: var(--lm-accent);
+  --color-link--hover: var(--lm-accent);
+  --color-link--visited: var(--lm-accent);
+  --color-link-underline: var(--lm-rule);
+  --color-link-underline--hover: var(--lm-accent);
+  --color-link-underline--visited: var(--lm-rule);
   --color-code-background: var(--lm-soft);
   --color-code-foreground: var(--lm-ink);
   --color-sidebar-background: var(--lm-paper);
   --color-sidebar-background-border: var(--lm-rule);
+  --color-sidebar-brand-text: var(--lm-ink);
+  --color-sidebar-caption-text: var(--lm-muted);
+  --color-sidebar-link-text: var(--lm-muted);
+  --color-sidebar-link-text--top-level: var(--lm-ink);
+  --color-sidebar-item-background--current: transparent;
+  --color-sidebar-item-background--hover: var(--lm-soft);
+  --color-sidebar-search-background: var(--lm-paper);
+  --color-sidebar-search-background--focus: var(--lm-paper);
+  --color-sidebar-search-border: var(--lm-rule);
+  --color-toc-title-text: var(--lm-muted);
+  --color-toc-item-text: var(--lm-muted);
+  --color-toc-item-text--hover: var(--lm-ink);
+  --color-toc-item-text--active: var(--lm-accent);
+  --color-header-background: var(--lm-paper);
+  --color-header-border: var(--lm-rule);
+  --color-header-text: var(--lm-ink);
   --color-admonition-background: var(--lm-soft);
+  --color-admonition-title: var(--lm-accent2);
+  --color-admonition-title-background: transparent;
+  --color-admonition-title--note: var(--lm-accent);
+  --color-admonition-title-background--note: transparent;
+  --color-admonition-title--seealso: var(--lm-accent);
+  --color-admonition-title-background--seealso: transparent;
+  --color-admonition-title--tip: var(--lm-accent);
+  --color-admonition-title-background--tip: transparent;
+  --color-admonition-title--hint: var(--lm-accent);
+  --color-admonition-title-background--hint: transparent;
+  --color-admonition-title--important: var(--lm-accent2);
+  --color-admonition-title-background--important: transparent;
+  --color-admonition-title--attention: var(--lm-accent2);
+  --color-admonition-title-background--attention: transparent;
+  --color-admonition-title--caution: var(--lm-accent2);
+  --color-admonition-title-background--caution: transparent;
+  --color-admonition-title--warning: var(--lm-accent2);
+  --color-admonition-title-background--warning: transparent;
+  --color-admonition-title--danger: var(--lm-accent2);
+  --color-admonition-title-background--danger: transparent;
+  --color-admonition-title--error: var(--lm-accent2);
+  --color-admonition-title-background--error: transparent;
+  --color-topic-title: var(--lm-accent);
+  --color-topic-title-background: transparent;
   --color-inline-code-background: var(--lm-soft);
   --color-api-background: var(--lm-soft);
+  --color-api-background-hover: var(--lm-soft);
+  --color-api-overall: var(--lm-muted);
+  --color-api-name: var(--lm-accent);
+  --color-api-pre-name: var(--lm-accent);
+  --color-api-paren: var(--lm-muted);
+  --color-api-keyword: var(--lm-accent2);
+  --color-api-added: var(--lm-accent);
+  --color-api-changed: var(--lm-accent);
+  --color-api-deprecated: var(--lm-accent2);
   --color-highlight-on-target: var(--lm-soft);
+  --color-highlighted-background: var(--lm-soft);
+  --color-highlighted-text: var(--lm-ink);
+  --color-guilabel-background: var(--lm-soft);
+  --color-guilabel-border: var(--lm-rule);
+  --color-guilabel-text: var(--lm-ink);
+  --color-card-border: var(--lm-rule);
+  --color-card-background: transparent;
+  --color-card-marginals-background: var(--lm-soft);
 }
 
-/* furo switches by body[data-theme]; feed it the dark tokens. */
+/* furo switches by body[data-theme]; feed it the dark tokens (keep in step with style/tokens.json). */
 body[data-theme="dark"] {
-  --lm-paper: #1c1d19; --lm-ink: #e8e4d8; --lm-muted: #a5a597;
-  --lm-rule: #45463d; --lm-soft: #26271f; --lm-accent: #b4bd9d;
+  --lm-paper: #1d1c1a; --lm-ink: #ece9e2; --lm-muted: #a3a097; --lm-rule: #3b3935;
+  --lm-soft: #262522; --lm-accent: #8fb3d9; --lm-accent2: #e08a72;
 }
 @media (prefers-color-scheme: dark) {
   body:not([data-theme="light"]) {
-    --lm-paper: #1c1d19; --lm-ink: #e8e4d8; --lm-muted: #a5a597;
-    --lm-rule: #45463d; --lm-soft: #26271f; --lm-accent: #b4bd9d;
+    --lm-paper: #1d1c1a; --lm-ink: #ece9e2; --lm-muted: #a3a097; --lm-rule: #3b3935;
+    --lm-soft: #262522; --lm-accent: #8fb3d9; --lm-accent2: #e08a72;
   }
 }
 
-/* Ink-on-paper restraint: regular-weight headings, square corners, no shadows. */
-h1, h2, h3, h4 { font-weight: 400; letter-spacing: -0.02em; }
-h1 { letter-spacing: -0.035em; }
-.sidebar-brand-text { font-size: 1.5rem; letter-spacing: -0.03em; font-weight: 400; }
+/* Ink-on-paper restraint: light serif headings, square corners, no shadows. */
+h1, h2, h3, h4, h5, h6 { font-family: var(--lm-font-display); font-weight: 400; letter-spacing: -0.015em; }
+h1 { letter-spacing: -0.025em; }
+.sidebar-brand-text { font-family: var(--lm-font-display); font-size: 1.5rem; letter-spacing: -0.02em; font-weight: 400; }
+article { line-height: 1.65; }
+/* Code tones: keywords in the second accent, names in the first, comments muted. */
+/* !important because furo's dark pygments rules carry body[data-theme] in their selectors. */
+.highlight .k, .highlight .kn, .highlight .kc, .highlight .kd, .highlight .kr, .highlight .ow { color: var(--lm-accent2) !important; font-weight: 400 !important; }
+.highlight .nf, .highlight .nc, .highlight .mi, .highlight .mf, .highlight .s, .highlight .s1, .highlight .s2 { color: var(--lm-accent) !important; font-weight: 400 !important; }
+.highlight .nn, .highlight .n, .highlight .o, .highlight .p, .highlight .nb { color: var(--lm-ink) !important; text-decoration: none !important; font-weight: 400 !important; }
+.highlight .c, .highlight .c1, .highlight .cm, .highlight .sd { color: var(--lm-muted) !important; }
 .admonition, pre, .highlight, code.literal, .sig { border-radius: 0 !important; box-shadow: none !important; }
+.admonition { border-left: 2px solid var(--lm-accent2); }
+.admonition.note, .admonition.seealso, .admonition.tip, .admonition.hint { border-left-color: var(--lm-accent); }
+.admonition-title::before { display: none; }
+.admonition-title { padding-left: 0.6rem !important; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.75rem !important; }
 article img { mix-blend-mode: multiply; }
 body[data-theme="dark"] article img { mix-blend-mode: normal; }
+@media (prefers-color-scheme: dark) { body:not([data-theme="light"]) article img { mix-blend-mode: normal; } }
+/* Pygments paints its own grey ground and furo shadows tables: use the soft fill, no shadow. */
+.highlight, .highlight pre { background: var(--lm-soft) !important; }
+table.docutils { box-shadow: none !important; border-radius: 0 !important; }
+/* Type scale: one 17 px root (furo's is 16 px), so every size furo derives from it — body,
+   code blocks, inline code, admonitions, API signatures, tables, sidebar — grows by the same
+   17/16. Headings use a 2.1/1.55/1.25/1.1 em ladder instead of furo's 2.5/2/1.5 em. */
+html { font-size: 106.25%; }
+article h1 { font-size: 2.1em; }
+article h2 { font-size: 1.55em; }
+article h3 { font-size: 1.25em; }
+article h4 { font-size: 1.1em; }
+/* A long package name in a table cell may break, so the table fits the column. */
+article table.docutils code.literal { overflow-wrap: anywhere; }

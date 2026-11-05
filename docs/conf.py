@@ -23,7 +23,8 @@ myst_heading_anchors = 2
 html_theme = "furo"
 html_title = "LemaitreModels"
 html_static_path = ["_static"]
-html_css_files = ["lemaitre-tokens.css", "lemaitre.css"]
+html_css_files = ["lemaitre-tokens.css", "lemaitre.css", "binary.css"]
+html_js_files = ["binary.js"]
 html_theme_options = {
     "source_repository": "https://github.com/LemaitreModels/Lemaitre",
     "source_branch": "main",
