@@ -88,7 +88,7 @@
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       W = root.clientWidth;
-      H1 = Math.round(Math.min(W * 0.36, 360));                       // the sheet
+      H1 = Math.round(Math.min(W * 0.42, 420));                       // the sheet
       H = H1 + Math.round(Math.min(W * 0.2, 170));                    // plus the strain panel
       canvas.width = W * dpr; canvas.height = H * dpr;
       canvas.style.width = W + "px"; canvas.style.height = H + "px";
@@ -96,7 +96,7 @@
     new ResizeObserver(resize).observe(root);
     resize();
 
-    const L = L_SHEET, DX = 0.33, TILT = 0.25, ZMIN = -5.4;
+    const L = L_SHEET, DX = 0.33, TILT = 0.4, ZMIN = -5.4;
     const PLAY_SECONDS = 14;                                           // one full run, start to end
     let last = performance.now(), holdUntil = 0;
 
@@ -134,7 +134,7 @@
       function proj(x, y, zz) {
         const up = y * st + zz * ct, depth = -y * ct + zz * st;
         const f = cam / (cam - depth);
-        return [W / 2 + x * scale * f, H1 * 0.36 - up * scale * f, depth];
+        return [W / 2 + x * scale * f, H1 * 0.42 - up * scale * f, depth];
       }
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -180,7 +180,7 @@
       // one fixed height so nothing drops as the funnels deepen at merger.
       function hole(hx, hy, hm) {
         const p = proj(hx, hy, Z_HOLE);
-        const R = hm * scale * 1.4;
+        const R = hm * scale * 1.15;
         ctx.beginPath(); ctx.arc(p[0], p[1], R, 0, 2 * Math.PI);
         ctx.fillStyle = "#000000"; ctx.fill();
         ctx.strokeStyle = rule; ctx.lineWidth = 0.8; ctx.stroke();
