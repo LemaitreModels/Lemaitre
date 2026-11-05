@@ -1,8 +1,0 @@
-/* Controls for binary.js, drawn with the Lemaitre style tokens. */
-.lm-binary { width: 100%; margin: 1.5rem 0 3.5rem; }
-.lm-binary canvas { display: block; width: 100%; }
-.lm-binary-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 2.5rem;
-  align-items: center; font-size: 1rem; color: var(--lm-ink, #1f1e1c); margin-top: 0.75rem; }
-.lm-binary-controls label { display: flex; align-items: center; gap: 0.6rem; }
-.lm-binary-controls input[type=range] { width: 9rem; accent-color: var(--lm-accent, #2c5a85); }
-.lm-binary-controls output { font-variant-numeric: tabular-nums; min-width: 5rem; }

@@ -29,9 +29,9 @@ body:not([data-theme="light"]) {
   --color-link: var(--lm-accent);
   --color-link--hover: var(--lm-accent);
   --color-link--visited: var(--lm-accent);
-  --color-link-underline: var(--lm-rule);
+  --color-link-underline: transparent;          /* underline only on hover */
   --color-link-underline--hover: var(--lm-accent);
-  --color-link-underline--visited: var(--lm-rule);
+  --color-link-underline--visited: transparent;
   --color-code-background: var(--lm-soft);
   --color-code-foreground: var(--lm-ink);
   --color-sidebar-background: var(--lm-paper);
@@ -143,3 +143,6 @@ article h3 { font-size: 1.25em; }
 article h4 { font-size: 1.1em; }
 /* A long package name in a table cell may break, so the table fits the column. */
 article table.docutils code.literal { overflow-wrap: anywhere; }
+/* Text in an accent, e.g. <em class="lm-red">…</em> in a Markdown page: blue (accent), red (accent2). */
+.lm-blue { color: var(--lm-accent); }
+.lm-red { color: var(--lm-accent2); }
