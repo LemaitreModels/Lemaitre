@@ -144,8 +144,8 @@ article h4 { font-size: 1.1em; }
 /* A long package name in a table cell may break, so the table fits the column. */
 article table.docutils code.literal { overflow-wrap: anywhere; }
 /* Text in an accent, e.g. <em class="lm-red">…</em> in a Markdown page: blue (accent), red (accent2). */
-.lm-blue { color: var(--lm-accent); }
-.lm-red { color: var(--lm-accent2); }
+.lm-blue, a.lm-blue:visited { color: var(--lm-accent); }
+.lm-red, a.lm-red:visited { color: var(--lm-accent2); }   /* a visited link would otherwise turn blue */
 
 /* Titles (lemaitre.js): the "LM" of a model name in vermilion; the circumflex of
    LemaîtreModels (over a dotless i) in vermilion. */
