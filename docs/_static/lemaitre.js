@@ -1,7 +1,7 @@
 /* Title marks for the Lemaitre docs sites: in the sidebar brand, the mobile header and the
-   page's first heading, a model name's leading "LM" is set in vermilion
-   (LMID-conformally-flat-puncture), and in "LemaîtreModels" the L, the M and the circumflex
-   are vermilion (the circumflex over a dotless i). Only the first text node of each title is
+   page's first heading, a model name's leading "LM" is set in Prussian blue
+   (LMID-conformally-flat-puncture), and the circumflex of "LemaîtreModels" in vermilion
+   (over a dotless i). Only the first text node of each title is
    touched, so the heading's anchor link is left alone. */
 (function () {
   "use strict";
@@ -13,9 +13,9 @@
     const frag = document.createDocumentFragment();
     const m = body.match(/^Lema[i\u00EE]treModels/);
     if (m) {
-      frag.append(lead, red("L"), "ema", red("\u0131", "lm-ihat"), "tre", red("M"), "odels" + body.slice(m[0].length));
+      frag.append(lead + "Lema", red("\u0131", "lm-ihat"), "treModels" + body.slice(m[0].length));
     } else if (/^LM[A-Z-]/.test(body)) {
-      frag.append(lead, red("LM"), body.slice(2));
+      frag.append(lead, red("LM", "lm-blue"), body.slice(2));
     } else return;
     node.replaceWith(frag);
   }

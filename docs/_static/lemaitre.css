@@ -147,8 +147,8 @@ article table.docutils code.literal { overflow-wrap: anywhere; }
 .lm-blue { color: var(--lm-accent); }
 .lm-red { color: var(--lm-accent2); }
 
-/* Titles (lemaitre.js): the "LM" of a model name in vermilion; in LemaîtreModels the L, the M
-   and the circumflex (over a dotless i) in vermilion. */
+/* Titles (lemaitre.js): the "LM" of a model name in Prussian blue; the circumflex of
+   LemaîtreModels (over a dotless i) in vermilion. */
 .lm-ihat { position: relative; }
 .lm-ihat::after { content: "\02C6"; position: absolute; left: 50%; transform: translateX(-50%);
   top: 0.06em; color: var(--lm-accent2); }
