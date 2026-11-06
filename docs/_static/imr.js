@@ -60,7 +60,7 @@
     controls.className = "lm-imr-controls";
     root.append(canvas, controls);
 
-    let m = model(2.5), t = 0, off = 0;
+    let m = model(1.7), t = 0, off = 0;
     const still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let running = !still;
 
