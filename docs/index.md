@@ -19,6 +19,7 @@ Below is an overview of what we can already do.
 
 ```{toctree}
 :hidden:
+:caption: Initial data
 
 Conformally flat puncture ID <https://lemaitre.readthedocs.io/projects/lmid-conformally-flat-puncture/>
 ```

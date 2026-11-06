@@ -177,7 +177,7 @@
       ctx.globalAlpha = 1;
 
       // Label, top right above the sheet's rim, as in figure 10.
-      ctx.font = "italic " + getComputedStyle(root).fontSize + " " + token(root, "--lm-font-text", "system-ui, sans-serif");
+      ctx.font = "italic 15px " + token(root, "--lm-font-text", "system-ui, sans-serif");   // as the axis labels
       ctx.fillStyle = ink; ctx.textAlign = "right"; ctx.textBaseline = "alphabetic";
       ctx.fillText("AI\u2019s impression", W * 0.93, H1 * 0.42 - 0.12 * W);
 
