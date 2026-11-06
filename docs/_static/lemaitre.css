@@ -35,7 +35,7 @@ body:not([data-theme="light"]) {
   --color-code-background: var(--lm-soft);
   --color-code-foreground: var(--lm-ink);
   --color-sidebar-background: var(--lm-paper);
-  --color-sidebar-background-border: var(--lm-rule);
+  --color-sidebar-background-border: var(--lm-accent2);
   --color-sidebar-brand-text: var(--lm-ink);
   --color-sidebar-caption-text: var(--lm-muted);
   --color-sidebar-link-text: var(--lm-muted);
@@ -44,7 +44,7 @@ body:not([data-theme="light"]) {
   --color-sidebar-item-background--hover: var(--lm-soft);
   --color-sidebar-search-background: var(--lm-paper);
   --color-sidebar-search-background--focus: var(--lm-paper);
-  --color-sidebar-search-border: var(--lm-rule);
+  --color-sidebar-search-border: var(--lm-accent2);
   --color-toc-title-text: var(--lm-muted);
   --color-toc-item-text: var(--lm-muted);
   --color-toc-item-text--hover: var(--lm-ink);
@@ -147,8 +147,8 @@ article table.docutils code.literal { overflow-wrap: anywhere; }
 .lm-blue { color: var(--lm-accent); }
 .lm-red { color: var(--lm-accent2); }
 
-/* Titles (lemaitre.js): the "LM" of a model name in vermilion, and the circumflex of
-   Lemaître in vermilion over a dotless i. */
+/* Titles (lemaitre.js): the "LM" of a model name in vermilion; in LemaîtreModels the L, the M
+   and the circumflex (over a dotless i) in vermilion. */
 .lm-ihat { position: relative; }
 .lm-ihat::after { content: "\02C6"; position: absolute; left: 50%; transform: translateX(-50%);
   top: 0.06em; color: var(--lm-accent2); }
