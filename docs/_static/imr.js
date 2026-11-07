@@ -97,7 +97,7 @@
     resize();
 
     const L = L_SHEET, DX = 0.33, TILT = 0.4, ZMIN = -5.4;
-    const PLAY_SECONDS = 14;                                           // one full run, start to end
+    const PLAY_SECONDS = 18;                                           // one full run, start to end
     let last = performance.now(), holdUntil = 0;
 
     function frame(now) {
