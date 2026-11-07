@@ -222,7 +222,6 @@
         i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
       }
       ctx.lineWidth = 1.1; ctx.strokeStyle = ink; ctx.stroke();
-      if (t < m.tEnd) { ctx.beginPath(); ctx.arc(X(t), Y(m.strain(t, off)), 2.6, 0, 2 * Math.PI); ctx.fill(); }   // no dot on the final frame
 
       requestAnimationFrame(frame);
     }
