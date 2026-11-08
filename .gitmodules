@@ -25,3 +25,6 @@
 	path = LM-head-on
 	url = ../LM-head-on.git
 	update = none
+[submodule "LM-solvers"]
+	path = LM-solvers
+	url = git@github.com:LemaitreModels/LM-solvers.git
