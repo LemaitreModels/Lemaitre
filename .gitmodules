@@ -28,3 +28,7 @@
 [submodule "LM-solvers"]
 	path = LM-solvers
 	url = git@github.com:LemaitreModels/LM-solvers.git
+[submodule "LM-causal"]
+	path = LM-causal
+	url = ../LM-causal.git
+	update = none
