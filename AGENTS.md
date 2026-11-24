@@ -30,9 +30,10 @@ before working inside it:
 | `lemaitre.initial_data.curved_puncture` | `LM-initial-data/LMID-curved-puncture/AGENTS.md` |
 | `lemaitre.initial_data.radiative_puncture` | `LM-initial-data/LMID-radiative-puncture/AGENTS.md` |
 | `lemaitre.neural.puncture_field` | `LM-neural/LMN-puncture-field/AGENTS.md` |
+| `lemaitre.causal.raytrace` | `LM-causal/LMC-raytrace/AGENTS.md` |
 
 The umbrellas (`LM-initial-data`, `LM-inspiral`, `LM-neural`) ship only a namespace
-`__init__.py`, and `LM-ringdown`, `LM-tensor`, `LM-observe` and `LM-causal` no code yet, so none of them
+`__init__.py`, and `LM-ringdown`, `LM-tensor`, `LM-observe` and `LM-causal` no umbrella code, so none of them
 has a file of its own; this one covers them. `LM-observe`'s leaf is deliberately outside
 the namespace: it uses only public waveform models and data and never imports `lemaitre`.
 A repo that gains code gets an `AGENTS.md` and its `CLAUDE.md` stub in the same commit.
